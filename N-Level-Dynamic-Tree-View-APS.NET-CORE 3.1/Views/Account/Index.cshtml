@@ -1,0 +1,72 @@
+﻿@model IEnumerable<N_Level_Dynamic_Tree_View_APS.NET_CORE_3._1.Models.Account>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a class="btn btn-success" asp-action="Create">Create</a>
+</p>
+<div  class="tree">
+
+    <ul>
+        <li>
+            <span><a  style="color:#000; text-decoration:none;" data-toggle="collapse" href="#Web" aria-expanded="true" aria-controls="Web"> Chart of Accounts</a></span>
+            <div id="Web" class="collapse show">
+                @Html.Raw(ViewBag.TreeHtml)
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NameOfAc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameOfAc)
+                </td>
+                <td>
+                    @if (item.Type == (int)N_Level_Dynamic_Tree_View_APS.NET_CORE_3._1.Models.AccountLevel.Credit)
+                    {
+                        <span class="label label-primary">
+                            Credit
+                        </span>
+
+                    }
+                    @if (item.Type == (int)N_Level_Dynamic_Tree_View_APS.NET_CORE_3._1.Models.AccountLevel.Debit)
+                    {
+                        <span class="label label-success">
+                            Debit
+                        </span>
+
+                    }
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+
+}
